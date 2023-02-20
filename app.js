@@ -38,21 +38,35 @@ const kiwi = new Fruit({
 });
 
 const orange = new Fruit({
-  name: "Kiwi",
+  name: "orange",
   score: 10,
   review: "too sour for me"
 });
 
 const banana = new Fruit({
-  name: "Kiwi",
+  name: "banana",
   score: 10,
   review: "weird texture"
 });
 
-Fruit.insertMany([kiwi, orange, banana], function(err){
+// Fruit.insertMany([kiwi, orange, banana], function(err){
+//   if(err){
+//     console.log(err);
+//   }else {
+//     console.log("successfully saved all fruits to fruits DB");
+//   }
+// });
+
+
+Fruit.find(function(err, fruits){
   if(err){
     console.log(err);
-  }else {
-    console.log("successfully saved all fruits to fruits DB");
+  } else {
+
+    mongoose.connection.close();
+    
+    fruits.forEach(function(fruit){
+      console.log(fruit.name);
+    });
   }
 });
