@@ -2,20 +2,26 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/fruitsDB');
 
 const fruitSchema = new mongoose.Schema({
-  name: String,
-  rating: Number,
+  name: {
+    type: String,
+    required: [true, 'Please check your data entry, no name specified.']
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10
+  },
   review: String
 });
 
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const fruit = new Fruit({
-  name: "Apple",
-  rating: 7,
-  review: "Pretty solid as a fruit."
+  rating: 10,
+  review: "Peaches are so good"
 });
 
-// fruit.save();
+fruit.save();
 
 const personSchema = new mongoose.Schema({
   name: String,
